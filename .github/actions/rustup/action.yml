@@ -25,7 +25,7 @@ inputs:
     required: false
     type: boolean
   shared-key:
-    default: 'warm'
+    default: "warm"
     required: false
     type: string
 
@@ -50,6 +50,13 @@ runs:
       shell: bash
       if: runner.os != 'macOS'
       run: sed -i '/profile/d' rust-toolchain.toml
+
+    - name: Install dependencies (linux only)
+      shell: bash
+      if: runner.os == 'Linux'
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.0-dev libayatana-appindicator3-dev librsvg2-dev
 
     - name: Set minimal
       shell: bash
